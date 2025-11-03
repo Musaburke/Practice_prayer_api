@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prayer Times</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input { padding: 5px; margin: 5px; }
+        table { margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid #333; padding: 10px 20px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Prayer Times</h1>
+
+    <form method="POST">
+        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="country" placeholder="Country" required>
+        <button type="submit">Get Prayer Times</button>
+    </form>
+
+    {% if prayer_times %}
+        <h2>Prayer Times for {{ city }}, {{ country }}</h2>
+        <table>
+            <tr>
+                <th>Prayer</th>
+                <th>Time</th>
+            </tr>
+            {% for prayer, time in prayer_times.items() %}
+            <tr>
+                <td>{{ prayer }}</td>
+                <td>{{ time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
