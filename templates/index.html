@@ -1,39 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Prayer Times</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        input { padding: 5px; margin: 5px; }
-        table { margin: 20px auto; border-collapse: collapse; }
-        th, td { border: 1px solid #333; padding: 10px 20px; }
-        th { background-color: #f2f2f2; }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Prayer Times</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+	<style>
+		:root {
+			--bg: #f7f8fa;
+			--text: #0f172a;
+			--muted: #475569;
+			--card: #ffffff;
+			--primary: #2563eb;
+			--primary-weak: #dbeafe;
+			--border: #e2e8f0;
+			--table-stripe: #f8fafc;
+			--shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+			--radius: 14px;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #0b1220;
+				--text: #e5e7eb;
+				--muted: #94a3b8;
+				--card: #0f172a;
+				--primary: #60a5fa;
+				--primary-weak: #0b1220;
+				--border: #1f2937;
+				--table-stripe: #0b1220;
+				--shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+			}
+		}
+
+		body {
+			margin: 0;
+			font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+			background: radial-gradient(1200px 600px at 10% -10%, var(--primary-weak), transparent) no-repeat,
+			            var(--bg);
+			color: var(--text);
+			line-height: 1.5;
+		}
+
+		.container { max-width: 760px; margin: 48px auto; padding: 0 20px; }
+
+		.header { text-align: center; margin-bottom: 24px; }
+		.title { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
+		.subtitle { color: var(--muted); margin: 0; }
+
+		.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+		.card-section { padding: 20px; }
+
+		form { display: grid; gap: 12px; }
+		.form-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+		@media (min-width: 560px) { .form-row { grid-template-columns: 1fr 1fr; } }
+
+		label { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; display: inline-block; }
+		.input-group { display: flex; flex-direction: column; }
+		input[type="text"] {
+			width: 100%;
+			padding: 12px 14px;
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			background: transparent;
+			color: var(--text);
+			outline: none;
+			transition: border-color 0.2s, box-shadow 0.2s;
+		}
+		input[type="text"]::placeholder { color: var(--muted); opacity: 0.8; }
+		input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent); }
+
+		button[type="submit"] {
+			padding: 12px 16px;
+			border: 1px solid transparent;
+			border-radius: 10px;
+			background: var(--primary);
+			color: white;
+			font-weight: 600;
+			cursor: pointer;
+			transition: transform 0.02s ease, box-shadow 0.2s, background 0.2s;
+			box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+		}
+		button[type="submit"]:hover { transform: translateY(-1px); }
+		button[type="submit"]:active { transform: translateY(0); }
+		button[type="submit"]:focus-visible { outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 25%, transparent); }
+
+		.table-wrap { overflow-x: auto; margin-top: 16px; }
+		table { width: 100%; border-collapse: collapse; min-width: 360px; }
+		th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+		thead th { background: var(--primary); font-weight: 700; color: white; }
+		tbody tr:nth-child(even) td { background: var(--table-stripe); }
+		tbody tr:hover td { background: color-mix(in srgb, var(--primary-weak) 60%, transparent); }
+		tbody td { color: var(--text); }
+
+		.section-heading { font-size: 1.125rem; font-weight: 700; margin: 0 0 8px; }
+		.meta { color: var(--muted); margin: 0 0 16px; }
+		.footer-note { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 16px; }
+	</style>
 </head>
 <body>
-    <h1>Prayer Times</h1>
+	<div class="container">
+		<header class="header">
+			<h1 class="title">Prayer Times</h1>
+			<p class="subtitle">Enter your city and country to fetch today’s times</p>
+		</header>
 
-    <form method="POST">
-        <input type="text" name="city" placeholder="City" required>
-        <input type="text" name="country" placeholder="Country" required>
-        <button type="submit">Get Prayer Times</button>
-    </form>
+		<section class="card">
+			<div class="card-section">
+				<form method="POST" novalidate>
+					<div class="form-row">
+						<div class="input-group">
+							<label for="city">City</label>
+							<input id="city" type="text" name="city" placeholder="e.g. London" required value="{{ city }}">
+						</div>
+						<div class="input-group">
+							<label for="country">Country</label>
+							<input id="country" type="text" name="country" placeholder="e.g. United Kingdom" required value="{{ country }}">
+						</div>
+					</div>
+					<button type="submit">Get Prayer Times</button>
+				</form>
+			</div>
 
-    {% if prayer_times %}
-        <h2>Prayer Times for {{ city }}, {{ country }}</h2>
-        <table>
-            <tr>
-                <th>Prayer</th>
-                <th>Time</th>
-            </tr>
-            {% for prayer, time in prayer_times.items() %}
-            <tr>
-                <td>{{ prayer }}</td>
-                <td>{{ time }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+			{% if prayer_times %}
+			<hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+			<div class="card-section">
+				<h2 class="section-heading">Prayer Times for {{ city }}, {{ country }}</h2>
+				<p class="meta">All times local to your query</p>
+				<div class="table-wrap">
+					<table role="table" aria-label="Prayer times">
+						<thead>
+							<tr>
+								<th scope="col">Prayer</th>
+								<th scope="col">Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for prayer in ['Fajr','Dhuhr','Asr','Maghrib','Isha'] %}
+								<tr>
+									<td>{{ prayer }}</td>
+									<td>{{ prayer_times[prayer] }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<p class="footer-note">Check your local masjid or source for method adjustments if needed.</p>
+			</div>
+			{% endif %}
+		</section>
+	</div>
 </body>
 </html>
