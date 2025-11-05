@@ -56,7 +56,7 @@ def index():
         method_name = request.form.get("method", "ISNA")
         method = METHODS.get(method_name, 2)
 
-        # Basic input validation
+        #Input validation
         if not city or not country:
             error_message = "Please enter both a city and a country."
         elif not any(c.isalpha() for c in city):
@@ -67,12 +67,12 @@ def index():
             error_message = f"Country '{country}' not recognized."
         else:
             try:
-                # Call API
+                # Calls API
                 url = f"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}&method={method}"
                 response = requests.get(url)
                 data = response.json()
 
-                # Check API response
+                # Checks API for valid respone
                 if response.status_code == 200 and data.get("code") == 200:
                     timings = data.get("data", {}).get("timings")
                     hijri = data.get("data", {}).get("date", {}).get("hijri", {}).get("date")
