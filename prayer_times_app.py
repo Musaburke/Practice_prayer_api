@@ -12,7 +12,7 @@ METHODS = {
     "Tehran": 7
 }
 
-# Static list of valid countries
+#  list of valid countries
 VALID_COUNTRIES = {
     "afghanistan","albania","algeria","andorra","angola","antigua and barbuda","argentina",
     "armenia","australia","austria","azerbaijan","bahamas","bahrain","bangladesh","barbados",
@@ -41,8 +41,16 @@ VALID_COUNTRIES = {
     "vietnam","yemen","zambia","zimbabwe"
 }
 
-@app.route("/", methods=["GET", "POST"])
-def index():
+# My routes
+
+# Homepage
+@app.route("/")
+def home():
+    return render_template("home.html")
+
+# Prayer Times
+@app.route("/prayer", methods=["GET", "POST"])
+def prayer():
     prayer_times = None
     hijri_date = None
     city = ""
@@ -98,7 +106,7 @@ def index():
                 error_message = "An error occurred while fetching prayer times."
 
     return render_template(
-        "index.html",
+        "prayer.html",
         prayer_times=prayer_times,
         hijri_date=hijri_date,
         city=city,
@@ -107,6 +115,27 @@ def index():
         error_message=error_message,
         methods=METHODS.keys()
     )
+
+# Tasbeeh Counter
+@app.route("/tasbeeh")
+def tasbeeh():
+    return render_template("tasbeeh.html")
+
+# Random Hadith
+@app.route("/hadith")
+def hadith():
+    return render_template("hadith.html")
+
+# Hijri Calendar
+@app.route("/calendar")
+def calendar():
+    return render_template("calendar.html")
+
+# Islamic Quiz
+@app.route("/quiz")
+def quiz():
+    return render_template("quiz.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
