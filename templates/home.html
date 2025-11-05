@@ -2,27 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic Tools Hub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Scheherazade&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="home-page">
     <div class="container">
-        <header>
+        <header class="home-header">
             <h1>🌙 Islamic Tools Hub</h1>
-            <p>All your Islamic tools in one place</p>
+            <h2>All your Islamic tools in one place</h2>
         </header>
 
         <div class="button-grid">
-            <a href="/prayer"><button class="btn">Prayer Times</button></a>
-            <a href="/tasbeeh"><button class="btn">Tasbeeh Counter</button></a>
-            <a href="/hadith"><button class="btn">Random Hadith</button></a>
-            <a href="/calendar"><button class="btn">Hijri Calendar</button></a>
-            <a href="/quiz"><button class="btn">Islamic Quiz</button></a>
-        
+            <a href="/prayer"><button class="homebtn">Prayer Times</button></a>
+            <a href="/tasbeeh"><button class="homebtn">Tasbeeh Counter</button></a>
+            <a href="/hadith"><button class="homebtn">Random Hadith</button></a>
+            <a href="/quiz"><button class="homebtn">Islamic Quiz</button></a>
         </div>
-
-        
     </div>
 </body>
 </html>

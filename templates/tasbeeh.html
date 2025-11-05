@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasbeeh Counter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <a href="/"><button class="back-btn">Back to Home</button></a>
+</head>
+<body>
+
+    <h1>🌙 Tasbeeh Counter</h1>
+
+    <div class="row">
+        <button class="btn" id="subhanBtn">SubhanAllah</button>
+        <div class="count" id="subhanCount">0</div>
+    </div>
+
+    <div class="row">
+        <button class="btn" id="alhamdBtn">Alhamdullilah</button>
+        <div class="count" id="alhamdCount">0</div>
+    </div>
+
+    <div class="row">
+        <button class="btn" id="akbarBtn">Allahu Akbar</button>
+        <div class="count" id="akbarCount">0</div>
+    </div>
+
+    <button class="back-btn" id="resetBtn">Reset All</button>
+
+    <script>
+        let subhanCount = 0;
+        let alhamdCount = 0;
+        let akbarCount = 0;
+
+        const subhanBtn = document.getElementById("subhanBtn");
+        const alhamdBtn = document.getElementById("alhamdBtn");
+        const akbarBtn = document.getElementById("akbarBtn");
+        const resetBtn = document.getElementById("resetBtn");
+
+        const subhanDisplay = document.getElementById("subhanCount");
+        const alhamdDisplay = document.getElementById("alhamdCount");
+        const akbarDisplay = document.getElementById("akbarCount");
+
+        subhanBtn.addEventListener("click", () => {
+            subhanCount++;
+            subhanDisplay.textContent = subhanCount;
+        });
+
+        alhamdBtn.addEventListener("click", () => {
+            alhamdCount++;
+            alhamdDisplay.textContent = alhamdCount;
+        });
+
+        akbarBtn.addEventListener("click", () => {
+            akbarCount++;
+            akbarDisplay.textContent = akbarCount;
+        });
+
+        resetBtn.addEventListener("click", () => {
+            subhanCount = 0;
+            alhamdCount = 0;
+            akbarCount = 0;
+            subhanDisplay.textContent = subhanCount;
+            alhamdDisplay.textContent = alhamdCount;
+            akbarDisplay.textContent = akbarCount;
+        });
+    </script>
+
+</body>
+</html>

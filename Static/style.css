@@ -1,33 +1,42 @@
 body {
     margin: 0;
+    background-image: url('images/background1.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     font-family: 'Scheherazade', serif;
-    background: linear-gradient(to bottom, #fdf6e3, #e6f2ff);
     color: #333;
-}
-
-.container {
     text-align: center;
-    padding: 50px 20px;
+    min-height: 100vh;
 }
 
-header h1 {
+h1 {
     font-size: 3em;
     color: #2e4053;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
-header p {
-    font-size: 1.2em;
-    color: #566573;
+.row {
+    display: flex;
+    justify-content: space-between; /* pushes counter to the right */
+    align-items: center;
+    margin: 20px auto;
+    width: 300px;  /* or any fixed width that fits your design */
 }
 
-.button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    margin-top: 50px;
+.row button {
+    width: 150px; /* all buttons same width */
+    margin: 0;    /* remove right margin since space-between handles spacing */
 }
 
+.count {
+    font-size: 1.5em;
+    min-width: 40px;
+    text-align: right; /* ensures counter is aligned right */
+}
+
+
+/* Buttons */
 .btn {
     padding: 20px 30px;
     font-size: 1.2em;
@@ -38,23 +47,32 @@ header p {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+.homebtn {
+    padding: 20px 30px;
+    font-size: 1.2em;
+    color: rgb(235, 219, 164);
+    background-color: #2e4053;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.homebtn:hover {
+    background-color: #ebc14c;
+    transform: scale(1.05);
+}
 
 .btn:hover {
     background-color: #1b2838;
     transform: scale(1.05);
 }
 
-footer {
-    margin-top: 80px;
-    font-size: 0.9em;
-    color: #566573;
-}
 .back-btn {
     margin-top: 20px;
     padding: 20px 30px;
     font-size: 1.2em;
-    color: #2e4053;           /* dark text */
-    background-color: #f5c542; /* gold/yellow */
+    color: #2e4053;
+    background-color: #f5c542;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -64,4 +82,8 @@ footer {
 .back-btn:hover {
     background-color: #e0b030;
     transform: scale(1.05);
+}
+.home-header h1,
+.home-header h2 {
+    color: rgb(235, 219, 164);
 }

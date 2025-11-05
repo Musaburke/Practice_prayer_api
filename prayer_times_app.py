@@ -86,13 +86,13 @@ def prayer():
                     hijri = data.get("data", {}).get("date", {}).get("hijri", {}).get("date")
 
                     # Extra city validation
-                    api_timezone = data.get("data", {}).get("meta", {}).get("timezone", "")
-                    if api_timezone:
-                        api_city = api_timezone.split('/')[-1].replace('_', ' ')
-                        if api_city.lower() != city.lower():
-                            error_message = f"City '{city}' not found. Did you mean '{api_city}'?"
-                            timings = None
-                            hijri = None
+                    # api_timezone = data.get("data", {}).get("meta", {}).get("timezone", "")
+                    # if api_timezone:
+                    #     api_city = api_timezone.split('/')[-1].replace('_', ' ')
+                    #     if api_city.lower() != city.lower():
+                    #         error_message = f"City '{city}' not found. Did you mean '{api_city}'?"
+                    #         timings = None
+                    #         hijri = None
 
                     if timings and hijri:
                         prayer_times = timings
